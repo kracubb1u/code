@@ -1,33 +1,42 @@
 
-
 #include <iostream>
 #include <set>
+#include <string>
 
 using namespace std;
 
-
 int main() 
 {
-	set<int> mySet;
-	mySet.clear();
+	set<char> allNumbers;
+	set<char> input;
 
-	int a,b,c,d,summ = 0;
-	cin>>a>>b>>c>>d;
-	if(a>b){
-		swap(a,b);
-	}
-	if(c>d){
-		swap(c,d);
-	}
-	for(int i = a; i <= b; i++){
-		for(int j = c; j <= d;j++){		
-			if(!mySet.count(i*j)){
-				summ++;
-				mySet.insert(i*j);
-			} 
-		}	
-	}
-	cout<<summ<<endl;
+	for(char i = '0' ; i <= '9'; i++)
+		allNumbers.insert(i);
+	
+	string str;	
+	getline(cin,str);
+	
 
+	for(int i = 0; i < str.length(); i++)
+		input.insert(str[i]);
+
+	set<char> result; 	
+						
+	for(set<char>::iterator it = allNumbers.begin(); it != allNumbers.end(); it++)
+		if(!(input.count(*it) && allNumbers.count(*it)) )
+			result.insert(*it);
+	
+	cout<<result.size()<<endl;
+	
+	set<char>::iterator eit = --result.end();
+
+	for(set<char>::iterator it = result.begin(); it != result.end(); it++)
+		if(it != eit)
+			cout<<*it<<" ";
+		else
+			cout<<*it;
+
+	cout<<endl;
+	
 	return 0;
 }
